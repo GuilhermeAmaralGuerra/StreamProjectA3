@@ -1,0 +1,71 @@
+.signup-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: radial-gradient(circle at center, #1a1a1a, #000000);
+}
+
+.signup-container {
+  background-color: var(--card-dark);
+  padding: 40px;
+  border-radius: 8px;
+  width: 340px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.8);
+  text-align: center;
+}
+
+.signup-container h2 {
+  color: var(--secondary-color-text);
+  margin-bottom: 25px;
+}
+
+.signup-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.signup-inputs input {
+  padding: 12px;
+  border: none;
+  border-radius: 4px;
+  background-color: #333;
+  color: white;
+  outline: none;
+}
+
+.signup-inputs input::placeholder {
+  color: var(--text-muted);
+}
+
+.signup-container button {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--primary-red);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.signup-container button:hover {
+  background-color: #b20710;
+}
+
+.login-link {
+      color: var(--secondary-color-text) !important;
+}
+
+.login-text a {
+  color: var(--secondary-color-text);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.login-text a:hover {
+  text-decoration: none;
+}

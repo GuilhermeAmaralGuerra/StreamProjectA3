@@ -1,0 +1,121 @@
+:root {
+  --background-dark: #0f0f0f;
+  --card-dark: #1c1c1c;
+  --primary-red: #e50914;
+  --text-muted: #b3b3b3;
+  --secondary-color-text: #ffff00;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: var(--background-dark);
+}
+
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: radial-gradient(circle at center, #1a1a1a, #000000);
+}
+
+.login-container {
+  background-color: var(--card-dark);
+  padding: 40px;
+  border-radius: 8px;
+  width: 320px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.8);
+  text-align: center;
+}
+
+.logo {
+  color: var(--primary-red);
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.login-container h2 {
+  color: var(--secondary-color-text);
+  margin-bottom: 25px;
+}
+
+.login-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.login-inputs input {
+  padding: 12px;
+  border: none;
+  border-radius: 4px;
+  background-color: #333;
+  color: white;
+  outline: none;
+}
+
+.login-inputs input::placeholder {
+  color: var(--text-muted);
+}
+
+.login-container button {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--primary-red);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.login-container button:hover {
+  background-color: #b20710;
+}
+
+.signup-text {
+  color: var(--text-muted);
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.signup-text span {
+  color: white;
+  cursor: pointer;
+}
+
+.signup-text a {
+  text-decoration: none;
+}
+
+.signup-link {
+  color: var(--secondary-color-text) !important;
+}
+
+.signup-text a {
+  color: var(--secondary-color-text);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.signup-text a:hover {
+  text-decoration: none;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  color: var(--text-muted);
+  font-size: 12px;
+}
