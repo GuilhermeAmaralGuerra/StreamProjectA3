@@ -1,0 +1,100 @@
+nav {
+  min-height: 824px;
+  max-width: 1248;
+  width: 320px;
+  border-radius: 28px;
+
+  padding: 20px 10px 25px 10px;
+  margin: 20px 20px 20px 70px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: #1e1f24;
+}
+a {
+  text-decoration: none;
+  color: #cacbd0;
+}
+
+p span {
+  color: #cacbd0;
+}
+.superior ul {
+  display: flex;
+  flex-direction: column;
+}
+
+.superior ul li {
+  margin: 10px;
+  list-style: none;
+  text-decoration: none;
+  justify-content: center;
+  font-size: 15px;
+}
+
+.home {
+  background-color: #3f4659;
+}
+
+.inferior {
+  min-height: 512px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.inferior ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+li {
+  padding: 15px 5px 15px 10px;
+  border-radius: 15px;
+}
+
+.inferior ul li {
+  margin: 10px;
+  list-style: none;
+  text-decoration: none;
+  font-size: 15px;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #3f4659;
+}
+
+.card__continueAssistindo {
+  display: flex;
+  flex-direction: column;
+  font-size: 15px;
+}
+
+.conteiner {
+  margin-top: 10px;
+  color: #888992;
+
+  display: flex;
+  justify-content: space-between;
+}
+.esquerda {
+  display: flex;
+}
+p {
+  color: #bdbec7;
+  font-size: 15px;
+}
+span {
+  font-size: 12px;
+}
+
+div {
+  margin: 5px;
+}
+
+a {
+  text-decoration: none;
+  color: #cacbd0;
+}
