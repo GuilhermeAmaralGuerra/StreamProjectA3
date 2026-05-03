@@ -1,7 +1,14 @@
 import './login.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 function Login() {
+  const navigate = useNavigate()
+
+  const handleLogin = (e) => {
+    e.preventDefault()
+    navigate('/dashboard')
+  }
+
   return (
     <>
       <div className="login-page">
@@ -9,7 +16,7 @@ function Login() {
           <h1 className="logo">Assina Video</h1>
           <h2>Login</h2>
 
-          <form>
+          <form onSubmit={handleLogin}>
             <div className='login-inputs'>
               <input type="text" placeholder="Usuário" />
               <input type="password" placeholder="Senha" />
@@ -21,7 +28,9 @@ function Login() {
           <p className="signup-text">
             Não tem conta?
             <br />
-            <Link to="/signup"><span className="signup-link">Clique aqui e assine agora</span></Link>
+            <Link to="/signup">
+              <span className="signup-link">Clique aqui e assine agora</span>
+            </Link>
           </p>
         </div>
       </div>

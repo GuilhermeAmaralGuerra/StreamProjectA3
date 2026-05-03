@@ -1,7 +1,15 @@
 import './signup.css'
 import { Link } from 'react-router-dom'
+import {  useNavigate } from 'react-router-dom'
 
 function Signup() {
+  const navigate = useNavigate()
+
+  const handleLogin = (e) => {
+    e.preventDefault()
+    navigate('/dashboard')
+}
+
   return (
     <>
       <div className="signup-page">
@@ -9,7 +17,7 @@ function Signup() {
           <h1 className="logo">AssinaVideo</h1>
           <h2>Crie sua conta</h2>
 
-          <form>
+          <form onSubmit={handleLogin}>
             <div className="signup-inputs">
               <input type="text" placeholder="Nome de usuário" />
               <input type="email" placeholder="Email" />
