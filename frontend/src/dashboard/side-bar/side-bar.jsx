@@ -29,28 +29,28 @@ function SideBar() {
         </Link>
 
         {/* EXPLORAR */}
-        <Link to="/explorar" className={navItemClass('/explorar')}>
-          <span className={iconClass('/explorar')}>explore</span>
+        <Link to="/dashboard/explorar" className={navItemClass('/dashboard/explorar')}>
+          <span className={iconClass('/dashboard/explorar')}>explore</span>
           <span className="text-sm font-medium">Explorar</span>
         </Link>
 
         {/* FAVORITOS */}
-        <Link to="/favoritos" className={navItemClass('/favoritos')}>
-          <span className={iconClass('/favoritos')}>favorite</span>
+        <Link to="/dashboard/favoritos" className={navItemClass('/dashboard/favoritos')}>
+          <span className={iconClass('/dashboard/favoritos')}>favorite</span>
           <span className="text-sm font-medium">Favoritos</span>
         </Link>
 
         {/* VER MAIS TARDE */}
-        <Link to="/ver-mais-tarde" className={navItemClass('/ver-mais-tarde')}>
-          <span className={iconClass('/ver-mais-tarde')}>schedule</span>
+        <Link to="/dashboard/ver-mais-tarde" className={navItemClass('/dashboard/ver-mais-tarde')}>
+          <span className={iconClass('/dashboard/ver-mais-tarde')}>schedule</span>
           <span className="text-sm font-medium">Ver mais tarde</span>
         </Link>
 
         <div className="mx-0 h-px bg-(--md-sys-color-outline-variant)"></div>
 
         {/* CONFIGURAÇÕES */}
-        <Link to="/configuracoes" className={navItemClass('/configuracoes')}>
-          <span className={iconClass('/configuracoes')}>settings</span>
+        <Link to="/dashboard/configuracoes" className={navItemClass('/dashboard/configuracoes')}>
+          <span className={iconClass('/dashboard/configuracoes')}>settings</span>
           <span className="text-sm font-medium">Configurações</span>
         </Link>
 

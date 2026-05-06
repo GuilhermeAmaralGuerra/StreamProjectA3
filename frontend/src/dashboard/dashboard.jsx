@@ -1,5 +1,5 @@
+import { Outlet } from 'react-router-dom'
 import SideBar from './side-bar/side-bar.jsx'
-import Home from './home/home.jsx'
 
 function Dashboard() {
   return (
@@ -7,7 +7,7 @@ function Dashboard() {
       <div className="flex h-full flex-row gap-2.5">
         <SideBar />
         <section className="flex-1">
-          <Home />
+          <Outlet />
         </section>
       </div>
     </main>
