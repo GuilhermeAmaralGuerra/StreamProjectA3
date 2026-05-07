@@ -1,68 +1,23 @@
 import { useEffect, useState } from 'react'
 
 const sections = [
-  {
-    title: 'Transmissão e Download',
-    description: 'Configure streaming de vídeo e downloads para assistir offline.',
-    details: 'Ajuste qualidade de transmissão, permissões de download e uso de dados móveis.'
-  },
-  {
-    title: 'Transmissão',
-    description: 'Gerencie serviços de streaming, encode e preferências de performance.',
-    details: 'Habilite aceleração de hardware, limite de taxa de bits e resolução padrão.'
-  },
-  {
-    title: 'Autoplay',
-    description: 'Controle a reprodução automática entre vídeos e sugestões relacionadas.',
-    details: 'Escolha se o próximo vídeo inicia automaticamente após o término da reprodução.'
-  },
-  {
-    title: 'Dispositivos registrados',
-    description: 'Veja e gerencie todos os dispositivos conectados à sua conta.',
-    details: 'Remova dispositivos desativados ou autorize novos acessos com facilidade.'
-  },
-  {
-    title: 'Notificações',
-    description: 'Defina quais alertas você deseja receber do aplicativo.',
-    details: 'Ative emails, push e lembretes para novos episódios e mensagens importantes.'
-  },
-  {
-    title: 'Vídeos ocultos',
-    description: 'Gerencie a lista de vídeos que você ocultou da sua biblioteca.',
-    details: 'Reveja, restaure ou exclua vídeos ocultos para manter seu feed limpo.'
-  },
-  {
-    title: 'Assinaturas',
-    description: 'Controle seus planos, renovações e benefícios de assinante.',
-    details: 'Atualize seu plano, veja histórico de pagamentos e ofertas ativas.'
-  },
-  {
-    title: 'Idiomas',
-    description: 'Ajuste o idioma da interface e das legendas dos vídeos.',
-    details: 'Defina o idioma principal do aplicativo e preferências de legenda.'
-  },
-  {
-    title: 'Ajuda e Feedback',
-    description: 'Acesse suporte e envie sugestões para melhorar o aplicativo.',
-    details: 'Envie comentários, reporte problemas ou consulte a documentação de ajuda.'
-  },
-  {
-    title: 'Termos de Uso',
-    description: 'Leia as políticas e regras de uso do serviço.',
-    details: 'Atualize-se sobre privacidade, direitos autorais e responsabilidades do usuário.'
-  },
-  {
-    title: 'Demais configurações de usuário',
-    description: 'Personalize definições gerais da sua conta e experiência de uso.',
-    details: 'Gerencie preferências de acessibilidade, conta e opções avançadas.'
-  }
+  'Transmissão e Download',
+  'Transmissão',
+  'Autoplay',
+  'Dispositivos registrados',
+  'Notificações',
+  'Vídeos ocultos',
+  'Assinaturas',
+  'Idiomas',
+  'Ajuda e Feedback',
+  'Termos de Uso',
+  'Demais configurações de usuário'
 ]
 
 function Configuracoes() {
   const [notifications, setNotifications] = useState(true)
   const [darkMode, setDarkMode] = useState(true)
   const [autoplay, setAutoplay] = useState(false)
-  const [activeSection, setActiveSection] = useState(sections[0].title)
 
   useEffect(() => {
     window.setMaterialTheme?.('green', darkMode ? 'dark' : 'light')
@@ -135,43 +90,26 @@ function Configuracoes() {
         </div>
       </section>
 
-      <section className="grid auto-rows-fr gap-5 md:grid-cols-2">
-        {sections.map((section) => {
-          const isActive = activeSection === section.title
+      <section className="grid auto-rows-[96px] gap-5 md:grid-cols-2">
+        {sections.map((title) => (
+          <div key={title} className="relative min-w-0">
+            <article className="absolute inset-0 flex min-w-0 flex-col overflow-hidden rounded-[20px] bg-(--md-sys-color-outline-variant)">
+              <div className="h-8"></div>
 
-          return (
-            <div key={section.title} className="min-w-0">
-              <article className={`flex h-full min-h-80 min-w-0 flex-col overflow-hidden rounded-[20px] border bg-(--md-sys-color-outline-variant) transition ${isActive ? 'border-(--md-sys-color-primary) shadow-md shadow-(--md-sys-color-shadow/15)' : 'border-transparent'}`}>
-                <div className="relative h-44 overflow-hidden bg-(--md-sys-color-surface-container)">
-                  <div className="absolute inset-x-0 top-0 flex items-center justify-between gap-3 p-4">
-                    <span className="rounded-full bg-(--md-sys-color-secondary-container) px-3 py-1 text-xs font-medium text-(--md-sys-color-on-surface)">
-                      {isActive ? 'Selecionado' : 'Preferência'}
-                    </span>
-                    <button
-                      type="button"
-                      aria-label={`Configurar ${section.title}`}
-                      onClick={() => setActiveSection(section.title)}
-                      className="flex h-11 items-center justify-center gap-2 rounded-full bg-(--md-sys-color-primary) px-4 text-sm font-medium text-(--md-sys-color-on-primary) transition hover:opacity-90"
-                    >
-                      <span className="material-symbols-rounded fill text-[20px]!">tune</span>
-                      Configurar
-                    </button>
-                  </div>
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <p className="truncate text-lg font-semibold text-(--md-sys-color-on-surface)">{section.title}</p>
-                  </div>
-                </div>
+              <div className="relative flex flex-1 items-center gap-2.5 justify-between py-3 px-4">
+                <p className="truncate text-[14px] font-semibold text-(--md-sys-color-on-surface)">{title}</p>
 
-                <div className="relative flex flex-1 flex-col justify-between gap-4 p-5">
-                  <div>
-                    <p className="text-sm leading-6 text-(--md-sys-color-on-surface-variant)">{section.description}</p>
-                  </div>
-                  <p className="text-sm leading-6 text-(--md-sys-color-on-surface)">{section.details}</p>
-                </div>
-              </article>
-            </div>
-          )
-        })}
+                <button
+                  type="button"
+                  aria-label={`Abrir ${title}`}
+                  className="flex p-1.25 items-center justify-center rounded-full bg-(--md-sys-color-primary) text-(--md-sys-color-on-primary)"
+                >
+                  <span className="material-symbols-rounded fill text-[18px]!">play_arrow</span>
+                </button>
+              </div>
+            </article>
+          </div>
+        ))}
       </section>
     </div>
   )

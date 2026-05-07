@@ -11,12 +11,25 @@ function Favoritos() {
         <span className="rounded-full bg-(--md-sys-color-secondary-container) px-4 py-2 text-sm font-medium text-(--md-sys-color-on-surface)">{favorites.length} itens</span>
       </header>
 
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid auto-rows-[96px] gap-4 md:grid-cols-2">
         {favorites.map((item) => (
-          <article key={item} className="rounded-[30px] border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface) p-5 shadow-sm shadow-(--md-sys-color-shadow/5)">
-            <h2 className="text-lg font-semibold text-(--md-sys-color-on-surface)">{item}</h2>
-            <p className="mt-2 text-sm text-(--md-sys-color-on-surface-variant)">Conteúdo guardado para você voltar a assistir depois.</p>
-          </article>
+          <div key={item} className="relative min-w-0">
+            <article className="absolute inset-0 flex min-w-0 flex-col overflow-hidden rounded-[20px] bg-(--md-sys-color-outline-variant)">
+              <div className="h-8"></div>
+
+              <div className="relative flex flex-1 items-center gap-2.5 justify-between py-3 px-4">
+                <p className="truncate text-[14px] font-semibold text-(--md-sys-color-on-surface)">{item}</p>
+
+                <button
+                  type="button"
+                  aria-label={`Assistir ${item}`}
+                  className="flex p-1.25 items-center justify-center rounded-full bg-(--md-sys-color-primary) text-(--md-sys-color-on-primary)"
+                >
+                  <span className="material-symbols-rounded fill text-[18px]!">play_arrow</span>
+                </button>
+              </div>
+            </article>
+          </div>
         ))}
       </div>
     </section>

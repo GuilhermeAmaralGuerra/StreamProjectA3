@@ -6,17 +6,13 @@ function SideBar() {
   const isActive = (path) => location.pathname === path
 
   const navItemClass = (path) =>
-    `flex h-12 items-center gap-3 rounded-2xl px-4 transition-colors ${
-      isActive(path)
-        ? 'bg-(--md-sys-color-secondary-container) text-(--md-sys-color-secondary)'
-        : 'text-(--md-sys-color-secondary) hover:bg-(--md-sys-color-surface-container-high)'
+    `flex h-12 items-center gap-3 rounded-2xl px-4 transition-colors ${isActive(path)
+      ? 'bg-(--md-sys-color-secondary-container) text-(--md-sys-color-secondary)'
+      : 'text-(--md-sys-color-secondary) hover:bg-(--md-sys-color-surface-container-high)'
     }`
 
   const iconClass = (path) =>
-    `material-symbols-rounded text-[22px]! ${
-      isActive(path)
-        ? 'fill text-(--md-sys-color-on-secondary-container)'
-        : 'text-(--md-sys-color-on-surface-variant)'
+    `material-symbols-rounded text-[22px]! ${isActive(path) ? 'fill text-(--md-sys-color-on-secondary-container)' : 'text-(--md-sys-color-on-surface-variant)'
     }`
 
   return (

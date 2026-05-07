@@ -13,12 +13,25 @@ function VerMaisTarde() {
         </button>
       </header>
 
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid auto-rows-[96px] gap-4 md:grid-cols-2">
         {later.map((title) => (
-          <article key={title} className="rounded-[30px] border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface) p-5 shadow-sm shadow-(--md-sys-color-shadow/5)">
-            <h2 className="text-lg font-semibold text-(--md-sys-color-on-surface)">{title}</h2>
-            <p className="mt-2 text-sm text-(--md-sys-color-on-surface-variant)">Colocado na lista para assistir em outro momento.</p>
-          </article>
+          <div key={title} className="relative min-w-0">
+            <article className="absolute inset-0 flex min-w-0 flex-col overflow-hidden rounded-[20px] bg-(--md-sys-color-outline-variant)">
+              <div className="h-8"></div>
+
+              <div className="relative flex flex-1 items-center gap-2.5 justify-between py-3 px-4">
+                <p className="truncate text-[14px] font-semibold text-(--md-sys-color-on-surface)">{title}</p>
+
+                <button
+                  type="button"
+                  aria-label={`Assistir ${title}`}
+                  className="flex p-1.25 items-center justify-center rounded-full bg-(--md-sys-color-primary) text-(--md-sys-color-on-primary)"
+                >
+                  <span className="material-symbols-rounded fill text-[18px]!">play_arrow</span>
+                </button>
+              </div>
+            </article>
+          </div>
         ))}
       </div>
     </section>
