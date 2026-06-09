@@ -11,6 +11,7 @@ import Explorar from './dashboard/explorar/explorar.jsx'
 import Favoritos from './dashboard/favoritos/favoritos.jsx'
 import VerMaisTarde from './dashboard/ver-mais-tarde/ver-mais-tarde.jsx'
 import Configuracoes from './dashboard/configuracoes/configuracoes.jsx'
+import Player from './player/player.jsx'
 
 const materialYou = {
   blue: {
@@ -200,6 +201,7 @@ const router = createBrowserRouter([
       { index: true, element: <Login /> },
       { path: 'login', element: <Login /> },
       { path: 'signup', element: <Signup /> },
+      { path: 'assistir/:conteudoId', element: <Player /> },
       {
         path: 'dashboard',
         element: <Dashboard />,

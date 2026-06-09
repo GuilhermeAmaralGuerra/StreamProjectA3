@@ -1,14 +1,45 @@
 import './signup.css'
-import { Link } from 'react-router-dom'
-import {  useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { apiRequest } from '../services/api.js'
 
 function Signup() {
   const navigate = useNavigate()
+  const [form, setForm] = useState({
+    nome: '',
+    email: '',
+    senha: '',
+    confirmarSenha: ''
+  })
+  const [erro, setErro] = useState('')
+  const [carregando, setCarregando] = useState(false)
 
-  const handleLogin = (e) => {
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  const handleCadastro = async (e) => {
     e.preventDefault()
-    navigate('/dashboard')
-}
+    setErro('')
+    setCarregando(true)
+
+    try {
+      const data = await apiRequest('/usuarios', {
+        method: 'POST',
+        body: JSON.stringify(form)
+      })
+
+      localStorage.setItem('usuarioLogado', JSON.stringify(data.usuario))
+      navigate('/dashboard')
+    } catch (error) {
+      setErro(error.message)
+    } finally {
+      setCarregando(false)
+    }
+  }
 
   return (
     <>
@@ -17,21 +48,53 @@ function Signup() {
           <h1 className="logo">AssinaVideo</h1>
           <h2>Crie sua conta</h2>
 
-          <form onSubmit={handleLogin}>
+          <form onSubmit={handleCadastro}>
             <div className="signup-inputs">
-              <input type="text" placeholder="Nome de usuário" />
-              <input type="email" placeholder="Email" />
-              <input type="password" placeholder="Senha" />
-              <input type="password" placeholder="Confirmar senha" />
+              <input
+                type="text"
+                name="nome"
+                placeholder="Nome de usuario"
+                value={form.nome}
+                onChange={handleChange}
+                required
+              />
+              <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                value={form.email}
+                onChange={handleChange}
+                required
+              />
+              <input
+                type="password"
+                name="senha"
+                placeholder="Senha"
+                value={form.senha}
+                onChange={handleChange}
+                required
+              />
+              <input
+                type="password"
+                name="confirmarSenha"
+                placeholder="Confirmar senha"
+                value={form.confirmarSenha}
+                onChange={handleChange}
+                required
+              />
             </div>
 
-            <button type="submit">Cadastrar</button>
+            {erro && <p className="form-message error">{erro}</p>}
+
+            <button type="submit" disabled={carregando}>
+              {carregando ? 'Cadastrando...' : 'Cadastrar'}
+            </button>
           </form>
 
           <div className="signup-text">
-            Já tem uma conta?
+            Ja tem uma conta?
             <br />
-            <Link to="/login"><span className="login-link">Clique aqui e faça login</span></Link>
+            <Link to="/login"><span className="login-link">Clique aqui e faca login</span></Link>
           </div>
         </div>
       </div>
