@@ -1,117 +1,151 @@
 import { useEffect, useState } from 'react'
 
-const sections = [
-  'Transmissão e Download',
-  'Transmissão',
-  'Autoplay',
-  'Dispositivos registrados',
-  'Notificações',
-  'Vídeos ocultos',
-  'Assinaturas',
-  'Idiomas',
-  'Ajuda e Feedback',
-  'Termos de Uso',
-  'Demais configurações de usuário'
-]
+function Toggle({ checked, label, onChange }) {
+  return (
+    <button
+      type="button"
+      aria-checked={checked}
+      aria-label={label}
+      role="switch"
+      onClick={onChange}
+      className={`relative h-7 w-12 rounded-full border transition-colors ${checked
+        ? 'border-(--md-sys-color-primary) bg-(--md-sys-color-primary)'
+        : 'border-(--md-sys-color-outline) bg-(--md-sys-color-outline-variant)'
+      }`}
+    >
+      <span
+        className={`absolute top-1/2 h-4 w-4 -translate-y-1/2 rounded-full transition-all ${checked
+          ? 'right-1 bg-(--md-sys-color-on-primary)'
+          : 'left-1 bg-(--md-sys-color-outline)'
+        }`}
+      />
+    </button>
+  )
+}
 
 function Configuracoes() {
-  const [notifications, setNotifications] = useState(true)
-  const [darkMode, setDarkMode] = useState(true)
-  const [autoplay, setAutoplay] = useState(false)
+  const [themeMode, setThemeMode] = useState('dark')
+  const [onlyAvailable, setOnlyAvailable] = useState(true)
+  const [hideWatched, setHideWatched] = useState(false)
 
   useEffect(() => {
-    window.setMaterialTheme?.('green', darkMode ? 'dark' : 'light')
-  }, [darkMode])
+    const applyTheme = () => {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+      const nextMode = themeMode === 'system' ? (prefersDark ? 'dark' : 'light') : themeMode
+
+      window.setMaterialTheme?.('green', nextMode)
+    }
+
+    applyTheme()
+
+    if (themeMode !== 'system') return undefined
+
+    const media = window.matchMedia('(prefers-color-scheme: dark)')
+    media.addEventListener('change', applyTheme)
+
+    return () => media.removeEventListener('change', applyTheme)
+  }, [themeMode])
 
   return (
-    <div className="space-y-8">
-      <section className="rounded-[30px] border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container) p-8 shadow-md shadow-(--md-sys-color-shadow/10)">
-        <header className="mb-6 flex flex-col gap-3">
-          <h1 className="text-3xl font-semibold text-(--md-sys-color-on-surface)">Configurações</h1>
-          <p className="text-sm text-(--md-sys-color-on-surface-variant)">
-            Ajuste suas preferências e controle como o serviço funciona para você.
-          </p>
-        </header>
+    <section className="flex h-full min-h-0 flex-col gap-7 px-5 py-3.5">
+      <header className="flex items-center gap-4">
+        <label className="flex h-11 flex-1 items-center justify-between rounded-full bg-(--md-sys-color-surface-container) px-6">
+          <input
+            className="w-full bg-transparent text-sm text-(--md-sys-color-on-surface) placeholder:text-(--md-sys-color-on-surface-variant)"
+            placeholder="Pesquisar"
+            type="text"
+          />
+          <span className="material-symbols-rounded text-[18px]! text-(--md-sys-color-on-surface-variant)">search</span>
+        </label>
 
-        <div className="grid gap-5 md:grid-cols-2">
-          <article className="rounded-3xl border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface) p-5">
-            <div className="flex items-center justify-between gap-4">
-              <div>
-                <h2 className="text-lg font-medium text-(--md-sys-color-on-surface)">Notificações</h2>
-                <p className="text-sm text-(--md-sys-color-on-surface-variant)">Receba alertas sobre novos lançamentos e recomendações.</p>
-              </div>
-              <label className="flex cursor-pointer items-center gap-3 rounded-full bg-(--md-sys-color-surface-container-high) p-2">
-                <input
-                  type="checkbox"
-                  checked={notifications}
-                  onChange={() => setNotifications((prev) => !prev)}
-                  className="h-5 w-5 rounded border border-(--md-sys-color-outline) bg-(--md-sys-color-surface)"
-                />
-                <span className="text-sm text-(--md-sys-color-on-surface)">{notifications ? 'Ativo' : 'Desativado'}</span>
-              </label>
-            </div>
-          </article>
+        <button
+          type="button"
+          aria-label="Perfil"
+          className="flex h-11 w-11 items-center justify-center rounded-full border-3 border-(--md-sys-color-surface-container) bg-(--md-sys-color-outline-variant) text-sm font-semibold text-(--md-sys-color-on-surface)"
+        >
+          P
+        </button>
+      </header>
 
-          <article className="rounded-3xl border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface) p-5">
-            <div className="flex items-center justify-between gap-4">
-              <div>
-                <h2 className="text-lg font-medium text-(--md-sys-color-on-surface)">Tema escuro</h2>
-                <p className="text-sm text-(--md-sys-color-on-surface-variant)">Ative o modo escuro para a interface.</p>
-              </div>
-              <label className="flex cursor-pointer items-center gap-3 rounded-full bg-(--md-sys-color-surface-container-high) p-2">
-                <input
-                  type="checkbox"
-                  checked={darkMode}
-                  onChange={() => setDarkMode((prev) => !prev)}
-                  className="h-5 w-5 rounded border border-(--md-sys-color-outline) bg-(--md-sys-color-surface)"
-                />
-                <span className="text-sm text-(--md-sys-color-on-surface)">{darkMode ? 'Ativo' : 'Desativado'}</span>
-              </label>
-            </div>
-          </article>
+      <div className="flex flex-1 flex-col gap-7 pr-1">
+        <section className="grid grid-cols-[minmax(0,1fr)_116px] items-center gap-x-8 gap-y-4">
+          <h1 className="col-span-2 text-lg font-medium leading-none text-(--md-sys-color-secondary)">
+            Apar&ecirc;ncia:
+          </h1>
 
-          <article className="rounded-3xl border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface) p-5">
-            <div className="flex items-center justify-between gap-4">
-              <div>
-                <h2 className="text-lg font-medium text-(--md-sys-color-on-surface)">Reprodução automática</h2>
-                <p className="text-sm text-(--md-sys-color-on-surface-variant)">Continue automaticamente para o próximo vídeo ao terminar.</p>
-              </div>
-              <label className="flex cursor-pointer items-center gap-3 rounded-full bg-(--md-sys-color-surface-container-high) p-2">
-                <input
-                  type="checkbox"
-                  checked={autoplay}
-                  onChange={() => setAutoplay((prev) => !prev)}
-                  className="h-5 w-5 rounded border border-(--md-sys-color-outline) bg-(--md-sys-color-surface)"
-                />
-                <span className="text-sm text-(--md-sys-color-on-surface)">{autoplay ? 'Ativo' : 'Desativado'}</span>
-              </label>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section className="grid auto-rows-[96px] gap-5 md:grid-cols-2">
-        {sections.map((title) => (
-          <div key={title} className="relative min-w-0">
-            <article className="absolute inset-0 flex min-w-0 flex-col overflow-hidden rounded-[20px] bg-(--md-sys-color-outline-variant)">
-              <div className="h-8"></div>
-
-              <div className="relative flex flex-1 items-center gap-2.5 justify-between py-3 px-4">
-                <p className="truncate text-[14px] font-semibold text-(--md-sys-color-on-surface)">{title}</p>
-
-                <button
-                  type="button"
-                  aria-label={`Abrir ${title}`}
-                  className="flex p-1.25 items-center justify-center rounded-full bg-(--md-sys-color-primary) text-(--md-sys-color-on-primary)"
-                >
-                  <span className="material-symbols-rounded fill text-[18px]!">play_arrow</span>
-                </button>
-              </div>
-            </article>
+          <div className="flex flex-col gap-2">
+            <h2 className="text-base font-medium leading-none text-(--md-sys-color-on-surface)">Tema</h2>
+            <p className="text-sm leading-none text-(--md-sys-color-on-surface-variant)">
+              Selecione claro, escuro ou autom&aacute;tico.
+            </p>
           </div>
-        ))}
-      </section>
-    </div>
+
+          <select
+            value={themeMode}
+            onChange={(event) => setThemeMode(event.target.value)}
+            className="h-11 w-full rounded border border-(--md-sys-color-outline) bg-(--md-sys-color-surface) px-3 text-sm text-(--md-sys-color-on-surface)"
+          >
+            <option value="dark">Escuro</option>
+            <option value="light">Claro</option>
+            <option value="system">Autom&aacute;tico</option>
+          </select>
+
+          <div className="flex flex-col gap-2">
+            <h2 className="text-base font-medium leading-none text-(--md-sys-color-on-surface)">Cor do tema</h2>
+            <p className="text-sm leading-none text-(--md-sys-color-on-surface-variant)">
+              Escolha a cor principal da interface do site.
+            </p>
+          </div>
+
+          <button
+            type="button"
+            aria-label="Cor do tema verde"
+            className="flex h-11 w-full items-center justify-between rounded border border-(--md-sys-color-outline) bg-(--md-sys-color-surface) px-3 text-sm text-(--md-sys-color-on-surface)"
+          >
+            Verde
+            <span className="h-4 w-4 rounded-full bg-(--md-sys-color-primary)" />
+          </button>
+        </section>
+
+        <section className="grid grid-cols-[minmax(0,1fr)_116px] items-center gap-x-8 gap-y-5">
+          <h1 className="col-span-2 text-lg font-medium leading-none text-(--md-sys-color-secondary)">
+            Prefer&ecirc;ncias:
+          </h1>
+
+          <div className="flex flex-col gap-2">
+            <h2 className="text-base font-medium leading-none text-(--md-sys-color-on-surface)">
+              Mostrar apenas conte&uacute;do dispon&iacute;vel
+            </h2>
+            <p className="text-sm leading-none text-(--md-sys-color-on-surface-variant)">
+              Oculta t&iacute;tulos para aluguel, compra ou dispon&iacute;veis apenas em outros servi&ccedil;os.
+            </p>
+          </div>
+
+          <div className="flex justify-end">
+            <Toggle
+              checked={onlyAvailable}
+              label="Mostrar apenas conteudo disponivel"
+              onChange={() => setOnlyAvailable((current) => !current)}
+            />
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <h2 className="text-base font-medium leading-none text-(--md-sys-color-on-surface)">Esconder j&aacute; assistidos</h2>
+            <p className="text-sm leading-none text-(--md-sys-color-on-surface-variant)">
+              Remover da navega&ccedil;&atilde;o t&iacute;tulos conclu&iacute;dos.
+            </p>
+          </div>
+
+          <div className="flex justify-end">
+            <Toggle
+              checked={hideWatched}
+              label="Esconder ja assistidos"
+              onChange={() => setHideWatched((current) => !current)}
+            />
+          </div>
+        </section>
+      </div>
+    </section>
   )
 }
 
