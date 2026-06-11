@@ -1,6 +1,6 @@
 # StreamProjectA3
 
-Projeto academico para desenvolvimento de um site de streaming chamado **AssinaVideo**.
+Projeto academico para desenvolvimento de um site de streaming chamado *AssinaVideo*.
 
 ## Tecnologias
 
@@ -68,20 +68,10 @@ Resposta esperada:
 }
 ```
 
-Rotas da API:
-
-```text
-GET /api/status
-GET /api/catalog
-```
-
-O arquivo `backend/.env.example` mostra as variaveis que podem ser usadas no servidor.
-O arquivo `frontend/.env.example` mostra a URL da API para o frontend.
-
 ## Verificar o projeto
 
 ```bash
 npm run check
 ```
 
-Esse comando executa lint, build do frontend e validacao de sintaxe do backend.
+Esse comando executa lint, build do frontend e validação de sintaxe do backend.
