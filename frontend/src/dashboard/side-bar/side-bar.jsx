@@ -82,14 +82,14 @@ function SideBar() {
             </div>
           </div>
 
-          <button
-            type="button"
+          <Link
+            to="/player/ruptura"
             className="flex cursor-pointer items-center justify-center rounded-full bg-(--md-sys-color-outline-variant) p-1.25 text-(--md-sys-color-on-surface-variant)"
           >
             <span className="material-symbols-rounded fill text-[20px]!">
               play_arrow
             </span>
-          </button>
+          </Link>
         </article>
       </section>
     </aside>

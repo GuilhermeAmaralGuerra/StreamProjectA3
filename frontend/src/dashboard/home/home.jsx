@@ -34,7 +34,7 @@ function Home() {
 
               <div className="flex items-center gap-2.5">
                 <Link
-                  to={`/dashboard/titulo/${featured.id}`}
+                  to={`/player/${featured.id}`}
                   className="flex cursor-pointer items-center gap-2 rounded-full bg-(--md-sys-color-primary) px-4 py-2.5 text-[14px] font-medium text-(--md-sys-color-on-primary)"
                 >
                   <span className="material-symbols-rounded fill text-[20px]!">play_arrow</span>

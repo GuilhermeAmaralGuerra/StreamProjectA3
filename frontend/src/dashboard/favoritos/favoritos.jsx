@@ -1,5 +1,13 @@
+import { Link } from 'react-router-dom'
+import { catalog } from '../../data/catalog.js'
+
 function Favoritos() {
   const favorites = ['Breaking Bad', 'The Office', 'Chernobil', 'Fullmetal Alchemist']
+
+  const getPlayUrl = (title) => {
+    const item = catalog.find((c) => c.title.toLowerCase() === title.toLowerCase())
+    return `/player/${item ? item.id : 'ruptura'}`
+  }
 
   return (
     <section className="flex h-full min-h-0 flex-col gap-6 px-5 py-3.5">
@@ -20,13 +28,13 @@ function Favoritos() {
               <div className="relative flex flex-1 items-center gap-2.5 justify-between py-3 px-4">
                 <p className="truncate text-[14px] font-semibold text-(--md-sys-color-on-surface)">{item}</p>
 
-                <button
-                  type="button"
+                <Link
+                  to={getPlayUrl(item)}
                   aria-label={`Assistir ${item}`}
                   className="flex p-1.25 items-center justify-center rounded-full bg-(--md-sys-color-primary) text-(--md-sys-color-on-primary)"
                 >
                   <span className="material-symbols-rounded fill text-[18px]!">play_arrow</span>
-                </button>
+                </Link>
               </div>
             </article>
           </div>

@@ -55,13 +55,13 @@ function Titulo() {
           </div>
 
           <div className="flex items-center gap-2.5">
-            <button
-              type="button"
+            <Link
+              to={`/player/${title.id}`}
               className="flex cursor-pointer items-center gap-2 rounded-full bg-(--md-sys-color-primary) px-5 py-2.5 text-sm font-medium text-(--md-sys-color-on-primary)"
             >
               <span className="material-symbols-rounded fill text-[20px]!">play_arrow</span>
               Assistir agora
-            </button>
+            </Link>
 
             <button
               type="button"

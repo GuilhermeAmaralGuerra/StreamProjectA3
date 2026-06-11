@@ -14,6 +14,7 @@ import VerMaisTarde from './dashboard/ver-mais-tarde/ver-mais-tarde.jsx'
 import Configuracoes from './dashboard/configuracoes/configuracoes.jsx'
 import Suporte from './dashboard/suporte/suporte.jsx'
 import Titulo from './dashboard/titulo/titulo.jsx'
+import Player from './player/player.jsx'
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
           { path: 'suporte', element: <Suporte /> },
           { path: 'titulo/:titleId', element: <Titulo /> }
         ]
+      },
+      {
+        path: 'player/:titleId',
+        element: <Player />
       }
     ]
   }
