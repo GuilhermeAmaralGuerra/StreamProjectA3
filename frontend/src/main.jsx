@@ -12,6 +12,8 @@ import Explorar from './dashboard/explorar/explorar.jsx'
 import Favoritos from './dashboard/favoritos/favoritos.jsx'
 import VerMaisTarde from './dashboard/ver-mais-tarde/ver-mais-tarde.jsx'
 import Configuracoes from './dashboard/configuracoes/configuracoes.jsx'
+import Suporte from './dashboard/suporte/suporte.jsx'
+import Titulo from './dashboard/titulo/titulo.jsx'
 
 const router = createBrowserRouter([
   {
@@ -29,7 +31,9 @@ const router = createBrowserRouter([
           { path: 'explorar', element: <Explorar /> },
           { path: 'favoritos', element: <Favoritos /> },
           { path: 'ver-mais-tarde', element: <VerMaisTarde /> },
-          { path: 'configuracoes', element: <Configuracoes /> }
+          { path: 'configuracoes', element: <Configuracoes /> },
+          { path: 'suporte', element: <Suporte /> },
+          { path: 'titulo/:titleId', element: <Titulo /> }
         ]
       }
     ]

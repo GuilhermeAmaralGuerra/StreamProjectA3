@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom'
 import SideBar from './side-bar/side-bar.jsx'
+import SuporteFlutuante from './suporte/suporte-flutuante.jsx'
 
 function Dashboard() {
   return (
@@ -9,6 +10,7 @@ function Dashboard() {
         <section className="flex-1">
           <Outlet />
         </section>
+        <SuporteFlutuante />
       </div>
     </main>
   )

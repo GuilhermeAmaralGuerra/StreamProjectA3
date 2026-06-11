@@ -50,6 +50,12 @@ function SideBar() {
           <span className="text-sm font-medium">Configurações</span>
         </Link>
 
+        {/* SUPORTE */}
+        <Link to="/dashboard/suporte" className={navItemClass('/dashboard/suporte')}>
+          <span className={iconClass('/dashboard/suporte')}>support_agent</span>
+          <span className="text-sm font-medium">Suporte</span>
+        </Link>
+
         {/* LOGOUT */}
         <Link to="/login" className="flex h-12 items-center gap-3 rounded-2xl px-4 text-red-400 transition-colors hover:bg-red-500/10">
           <span className="material-symbols-rounded text-[22px]!">logout</span>

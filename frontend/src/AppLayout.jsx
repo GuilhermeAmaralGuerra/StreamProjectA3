@@ -30,6 +30,70 @@ const materialYou = {
       '--md-state-layers-primary-opacity-16': '0.16'
     }
   },
+  purple: {
+    light: {
+      '--md-sys-color-primary': '#6f43c0',
+      '--md-sys-color-on-primary': '#ffffff',
+      '--md-sys-color-secondary': '#66587d',
+      '--md-sys-color-secondary-container': '#eadcff',
+      '--md-sys-color-surface': '#fdf7ff',
+      '--md-sys-color-surface-container': '#efe4fb',
+      '--md-sys-color-surface-container-high': '#e4d8ef',
+      '--md-sys-color-on-surface': '#21182b',
+      '--md-sys-color-on-surface-variant': '#4c4257',
+      '--md-sys-color-outline': '#7d7188',
+      '--md-sys-color-outline-variant': '#cdc0d9',
+      '--md-sys-color-shadow': 'rgb(0 0 0)',
+      '--md-state-layers-primary-opacity-16': '0.16'
+    },
+    dark: {
+      '--md-sys-color-primary': '#d7baff',
+      '--md-sys-color-on-primary': '#3e0f7d',
+      '--md-sys-color-secondary': '#d2c1e9',
+      '--md-sys-color-secondary-container': '#4e4164',
+      '--md-sys-color-surface': '#17111f',
+      '--md-sys-color-surface-container': '#2a2136',
+      '--md-sys-color-surface-container-high': '#352b42',
+      '--md-sys-color-on-surface': '#eee5f7',
+      '--md-sys-color-on-surface-variant': '#d0c4da',
+      '--md-sys-color-outline': '#998ca4',
+      '--md-sys-color-outline-variant': '#4c4257',
+      '--md-sys-color-shadow': 'rgb(0 0 0)',
+      '--md-state-layers-primary-opacity-16': '0.16'
+    }
+  },
+  orange: {
+    light: {
+      '--md-sys-color-primary': '#8f4f00',
+      '--md-sys-color-on-primary': '#ffffff',
+      '--md-sys-color-secondary': '#765a37',
+      '--md-sys-color-secondary-container': '#ffddb3',
+      '--md-sys-color-surface': '#fff8f2',
+      '--md-sys-color-surface-container': '#f5e6d4',
+      '--md-sys-color-surface-container-high': '#eadac8',
+      '--md-sys-color-on-surface': '#261a0f',
+      '--md-sys-color-on-surface-variant': '#554536',
+      '--md-sys-color-outline': '#857462',
+      '--md-sys-color-outline-variant': '#d8c3ad',
+      '--md-sys-color-shadow': 'rgb(0 0 0)',
+      '--md-state-layers-primary-opacity-16': '0.16'
+    },
+    dark: {
+      '--md-sys-color-primary': '#ffb95f',
+      '--md-sys-color-on-primary': '#4c2700',
+      '--md-sys-color-secondary': '#e5c190',
+      '--md-sys-color-secondary-container': '#5b421f',
+      '--md-sys-color-surface': '#1d1309',
+      '--md-sys-color-surface-container': '#322413',
+      '--md-sys-color-surface-container-high': '#3f2e1b',
+      '--md-sys-color-on-surface': '#f7eadc',
+      '--md-sys-color-on-surface-variant': '#dbc8b6',
+      '--md-sys-color-outline': '#a18d79',
+      '--md-sys-color-outline-variant': '#554536',
+      '--md-sys-color-shadow': 'rgb(0 0 0)',
+      '--md-state-layers-primary-opacity-16': '0.16'
+    }
+  },
   green: {
     light: {
       '--md-sys-color-primary': 'rgb(51 105 64)',
@@ -143,6 +207,11 @@ function AppLayout() {
 
   useEffect(() => {
     const root = document.documentElement
+    const getResolvedMode = (mode) => {
+      if (mode !== 'system') return mode
+
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+    }
 
     const applyTheme = (nextColorScheme, nextMode) => {
       const colorScheme = materialYou[nextColorScheme] ? nextColorScheme : themeRef.current.colorScheme
@@ -159,6 +228,12 @@ function AppLayout() {
       root.dataset.themeMode = mode
     }
 
+    const applySavedTheme = () => {
+      const savedColorScheme = localStorage.getItem('assinavideo.theme.color') || 'green'
+      const savedMode = localStorage.getItem('assinavideo.theme.mode') || 'dark'
+      applyTheme(savedColorScheme, getResolvedMode(savedMode))
+    }
+
     const handleThemeClick = (event) => {
       const trigger = event.target.closest('[data-set-theme]')
       if (!trigger) return
@@ -169,10 +244,14 @@ function AppLayout() {
     }
 
     window.setMaterialTheme = applyTheme
-    applyTheme(themeRef.current.colorScheme, themeRef.current.mode)
+    applySavedTheme()
+
+    const media = window.matchMedia('(prefers-color-scheme: dark)')
+    media.addEventListener('change', applySavedTheme)
     document.addEventListener('click', handleThemeClick)
 
     return () => {
+      media.removeEventListener('change', applySavedTheme)
       document.removeEventListener('click', handleThemeClick)
       delete window.setMaterialTheme
     }
