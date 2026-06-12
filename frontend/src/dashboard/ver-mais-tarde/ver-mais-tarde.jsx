@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { catalog } from '../../data/catalog.js'
+import { getBannerBackground, getBannerByTitle } from '../../data/banners.js'
 
 function VerMaisTarde() {
   const later = ['Cosmos', 'Better Call Saul', 'The Boys', 'Fullmetal Alchemist']
@@ -21,25 +22,29 @@ function VerMaisTarde() {
         </button>
       </header>
 
-      <div className="grid auto-rows-[96px] gap-4 md:grid-cols-2">
+      <div className="flex flex-wrap gap-4">
         {later.map((title) => (
-          <div key={title} className="relative min-w-0">
-            <article className="absolute inset-0 flex min-w-0 flex-col overflow-hidden rounded-[20px] bg-(--md-sys-color-outline-variant)">
-              <div className="h-8"></div>
+          <Link
+            key={title}
+            to={getPlayUrl(title)}
+            aria-label={`Assistir ${title}`}
+            className="w-[calc(50%-0.5rem)] min-w-0 sm:w-[170px] lg:w-[185px]"
+          >
+            <article className="flex min-w-0 flex-col overflow-hidden rounded-[20px]">
+              <div
+                className="relative h-[clamp(130px,28vw,190px)] bg-(--md-sys-color-surface-container-high) sm:h-45"
+                style={getBannerBackground(getBannerByTitle(title))}
+              >
+                <div className="absolute right-3 bottom-3 left-3 flex items-center justify-between gap-2.5">
+                  <p className="truncate text-[14px] font-semibold text-(--md-sys-color-on-surface)">{title}</p>
 
-              <div className="relative flex flex-1 items-center gap-2.5 justify-between py-3 px-4">
-                <p className="truncate text-[14px] font-semibold text-(--md-sys-color-on-surface)">{title}</p>
-
-                <Link
-                  to={getPlayUrl(title)}
-                  aria-label={`Assistir ${title}`}
-                  className="flex p-1.25 items-center justify-center rounded-full bg-(--md-sys-color-primary) text-(--md-sys-color-on-primary)"
-                >
-                  <span className="material-symbols-rounded fill text-[18px]!">play_arrow</span>
-                </Link>
+                  <span className="flex items-center justify-center rounded-full bg-(--md-sys-color-primary) p-1.25 text-(--md-sys-color-on-primary)">
+                    <span className="material-symbols-rounded fill text-[18px]!">play_arrow</span>
+                  </span>
+                </div>
               </div>
             </article>
-          </div>
+          </Link>
         ))}
       </div>
     </section>

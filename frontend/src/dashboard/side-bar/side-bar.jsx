@@ -1,98 +1,112 @@
 import { Link, useLocation } from 'react-router-dom'
+import { getBannerBackground, getBannerById } from '../../data/banners.js'
 
 function SideBar() {
   const location = useLocation()
+  const continueBanner = getBannerById('ruptura')
 
-  const isActive = (path) => location.pathname === path
+  const isActive = (path) => {
+    if (path === '/dashboard') {
+      return location.pathname === '/dashboard' || location.pathname.startsWith('/dashboard/titulo/')
+    }
 
-  const navItemClass = (path) =>
-    `flex h-12 items-center gap-3 rounded-2xl px-4 transition-colors ${isActive(path)
-      ? 'bg-(--md-sys-color-secondary-container) text-(--md-sys-color-secondary)'
-      : 'text-(--md-sys-color-secondary) hover:bg-(--md-sys-color-surface-container-high)'
+    return location.pathname === path
+  }
+
+  const desktopItems = [
+    { path: '/dashboard', label: 'Home', icon: 'home' },
+    { path: '/dashboard/explorar', label: 'Explorar', icon: 'explore' },
+    { path: '/dashboard/favoritos', label: 'Favoritos', icon: 'favorite' },
+    { path: '/dashboard/ver-mais-tarde', label: 'Ver mais tarde', icon: 'schedule' },
+    { path: '/dashboard/configuracoes', label: 'Configurações', icon: 'settings' },
+    { path: '/dashboard/suporte', label: 'Suporte', icon: 'support_agent' },
+  ]
+
+  const mobileItems = [
+    { path: '/dashboard', label: 'Home', icon: 'home' },
+    { path: '/dashboard/explorar', label: 'Explorar', icon: 'explore' },
+    { path: '/dashboard/favoritos', label: 'Favoritos', icon: 'favorite' },
+    { path: '/dashboard/configuracoes', label: 'Configurações', icon: 'settings' },
+  ]
+
+  const desktopNavItemClass = (path) =>
+    `flex h-12 items-center gap-3 rounded-2xl px-4 transition-colors ${
+      isActive(path)
+        ? 'bg-(--md-sys-color-secondary-container) text-(--md-sys-color-secondary)'
+        : 'text-(--md-sys-color-secondary) hover:bg-(--md-sys-color-surface-container-high)'
     }`
 
-  const iconClass = (path) =>
-    `material-symbols-rounded text-[22px]! ${isActive(path) ? 'fill text-(--md-sys-color-on-secondary-container)' : 'text-(--md-sys-color-on-surface-variant)'
+  const desktopIconClass = (path) =>
+    `material-symbols-rounded text-[22px]! ${
+      isActive(path) ? 'fill text-(--md-sys-color-on-secondary-container)' : 'text-(--md-sys-color-on-surface-variant)'
     }`
 
   return (
-    <aside className="flex h-full w-[320px] flex-col justify-between rounded-t-[30px] bg-(--md-sys-color-surface-container) px-5 py-10 text-(--md-sys-color-on-surface-variant)">
-      <nav className="flex flex-col gap-2.5">
-        {/* HOME */}
-        <Link to="/dashboard" className={navItemClass('/dashboard')}>
-          <span className={iconClass('/dashboard')}>home</span>
-          <span className="text-sm font-medium">Home</span>
-        </Link>
-
-        {/* EXPLORAR */}
-        <Link to="/dashboard/explorar" className={navItemClass('/dashboard/explorar')}>
-          <span className={iconClass('/dashboard/explorar')}>explore</span>
-          <span className="text-sm font-medium">Explorar</span>
-        </Link>
-
-        {/* FAVORITOS */}
-        <Link to="/dashboard/favoritos" className={navItemClass('/dashboard/favoritos')}>
-          <span className={iconClass('/dashboard/favoritos')}>favorite</span>
-          <span className="text-sm font-medium">Favoritos</span>
-        </Link>
-
-        {/* VER MAIS TARDE */}
-        <Link to="/dashboard/ver-mais-tarde" className={navItemClass('/dashboard/ver-mais-tarde')}>
-          <span className={iconClass('/dashboard/ver-mais-tarde')}>schedule</span>
-          <span className="text-sm font-medium">Ver mais tarde</span>
-        </Link>
-
-        <div className="mx-0 h-px bg-(--md-sys-color-outline-variant)"></div>
-
-        {/* CONFIGURAÇÕES */}
-        <Link to="/dashboard/configuracoes" className={navItemClass('/dashboard/configuracoes')}>
-          <span className={iconClass('/dashboard/configuracoes')}>settings</span>
-          <span className="text-sm font-medium">Configurações</span>
-        </Link>
-
-        {/* SUPORTE */}
-        <Link to="/dashboard/suporte" className={navItemClass('/dashboard/suporte')}>
-          <span className={iconClass('/dashboard/suporte')}>support_agent</span>
-          <span className="text-sm font-medium">Suporte</span>
-        </Link>
-
-        {/* LOGOUT */}
-        <Link to="/login" className="flex h-12 items-center gap-3 rounded-2xl px-4 text-red-400 transition-colors hover:bg-red-500/10">
-          <span className="material-symbols-rounded text-[22px]!">logout</span>
-          <span className="text-sm font-medium">Sair</span>
-        </Link>
-      </nav>
-
-      <section className="flex flex-col gap-5">
-        <h2 className="text-sm font-medium text-(--md-sys-color-on-surface)">
-          Continue assistindo:
-        </h2>
-
-        <article className="flex items-center justify-between gap-2">
-          <div className="flex items-center gap-3">
-            <div className="h-14.5 w-12.5 rounded-xl bg-(--md-sys-color-outline-variant)"></div>
-
-            <div className="flex flex-col gap-2">
-              <p className="truncate text-sm text-(--md-sys-color-on-surface)">
-                Ruptura
-              </p>
-              <p className="text-xs text-(--md-sys-color-on-surface-variant)">
-                Episódio 2
-              </p>
-            </div>
-          </div>
+    <>
+      <aside className="hidden h-full w-[300px] flex-col justify-between rounded-[30px] bg-(--md-sys-color-surface-container) px-5 py-8 text-(--md-sys-color-on-surface-variant) lg:flex">
+        <nav className="flex flex-col gap-2.5">
+          {desktopItems.map((item) => (
+            <Link key={item.path} to={item.path} className={desktopNavItemClass(item.path)}>
+              <span className={desktopIconClass(item.path)}>{item.icon}</span>
+              <span className="text-sm font-medium">{item.label}</span>
+            </Link>
+          ))}
 
           <Link
-            to="/player/ruptura"
-            className="flex cursor-pointer items-center justify-center rounded-full bg-(--md-sys-color-outline-variant) p-1.25 text-(--md-sys-color-on-surface-variant)"
+            to="/login"
+            className="mt-1 flex h-12 items-center gap-3 rounded-2xl px-4 text-red-400 transition-colors hover:bg-red-500/10"
           >
-            <span className="material-symbols-rounded fill text-[20px]!">
-              play_arrow
-            </span>
+            <span className="material-symbols-rounded text-[22px]!">logout</span>
+            <span className="text-sm font-medium">Sair</span>
           </Link>
-        </article>
-      </section>
-    </aside>
+        </nav>
+
+        <section className="flex flex-col gap-5">
+          <h2 className="text-sm font-medium text-(--md-sys-color-on-surface)">Continue assistindo:</h2>
+
+          <article className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-3">
+              <div
+                className="h-14.5 w-12.5 rounded-xl bg-(--md-sys-color-outline-variant)"
+                style={getBannerBackground(continueBanner)}
+              ></div>
+
+              <div className="flex flex-col gap-1">
+                <p className="truncate text-sm text-(--md-sys-color-on-surface)">Ruptura</p>
+                <p className="text-xs text-(--md-sys-color-on-surface-variant)">Episódio 2</p>
+              </div>
+            </div>
+
+            <Link
+              to="/player/ruptura"
+              className="flex cursor-pointer items-center justify-center rounded-full bg-(--md-sys-color-outline-variant) p-1.25 text-(--md-sys-color-on-surface-variant)"
+            >
+              <span className="material-symbols-rounded fill text-[20px]!">play_arrow</span>
+            </Link>
+          </article>
+        </section>
+      </aside>
+
+      <nav className="fixed bottom-4 left-1/2 z-40 flex w-[calc(100%-1rem)] max-w-[720px] -translate-x-1/2 items-center justify-between rounded-[20px] border border-(--md-sys-color-outline-variant) bg-(--md-sys-color-surface-container)/95 px-2 py-2 shadow-[0_14px_25px_rgba(0,0,0,0.28)] backdrop-blur lg:hidden">
+        {mobileItems.map((item) => {
+          const active = isActive(item.path)
+          return (
+            <Link
+              key={item.path}
+              to={item.path}
+              className={`flex min-w-0 flex-1 flex-col items-center gap-1 rounded-xl px-2 py-1.5 transition-colors ${
+                active
+                  ? 'bg-(--md-sys-color-secondary-container) text-(--md-sys-color-on-secondary-container)'
+                  : 'text-(--md-sys-color-on-surface-variant)'
+              }`}
+            >
+              <span className={`material-symbols-rounded text-[22px]! ${active ? 'fill' : ''}`}>{item.icon}</span>
+              <span className="truncate text-[12px]">{item.label}</span>
+            </Link>
+          )
+        })}
+      </nav>
+    </>
   )
 }
 

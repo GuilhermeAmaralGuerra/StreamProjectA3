@@ -32,12 +32,12 @@ function Toggle({ checked, label, onChange }) {
 
 function SettingRow({ title, description, children }) {
   return (
-    <div className="grid grid-cols-[minmax(0,1fr)_minmax(140px,220px)] items-center gap-x-8 gap-y-3">
+    <div className="grid grid-cols-1 items-center gap-x-8 gap-y-3 md:grid-cols-[minmax(0,1fr)_minmax(180px,260px)]">
       <div className="flex flex-col gap-2">
         <h2 className="text-base font-medium leading-none text-(--md-sys-color-on-surface)">{title}</h2>
         <p className="text-sm leading-5 text-(--md-sys-color-on-surface-variant)">{description}</p>
       </div>
-      <div className="flex justify-end">{children}</div>
+      <div className="flex w-full justify-start md:justify-end">{children}</div>
     </div>
   )
 }
