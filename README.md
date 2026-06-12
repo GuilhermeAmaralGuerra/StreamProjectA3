@@ -14,7 +14,7 @@ git clone https://github.com/GuilhermeAmaralGuerra/StreamProjectA3.git
 cd StreamProjectA3
 ```
 
-## Como rodar o backend/API
+## Rodar a API
 
 Abra um terminal:
 
@@ -24,19 +24,13 @@ npm install
 npm start
 ```
 
-A API fica em:
-
-```text
-http://localhost:3000
-```
-
-Teste:
+Teste no navegador:
 
 ```text
 http://localhost:3000/api/health
 ```
 
-## Como rodar o frontend/site
+## Rodar o site
 
 Abra outro terminal:
 
@@ -46,76 +40,34 @@ npm install
 npm run dev
 ```
 
-O site fica em:
+Depois acesse:
 
 ```text
 http://localhost:5173
 ```
 
-## Observacao importante
+## Como o projeto funciona
 
-O frontend precisa que o backend esteja rodando para cadastro, login, favoritos e ver mais tarde funcionarem.
-O historico de "Continue assistindo" tambem depende do backend, pois ele e salvo pela API quando o usuario abre a tela de player.
+O frontend mostra as telas do site.
 
-## Usando um segundo notebook como servidor
-
-Use esta configuracao quando o backend/API ficar em um notebook e o frontend/site em outro.
-
-### No notebook servidor
-
-1. Conecte o notebook servidor na mesma rede Wi-Fi do notebook que vai abrir o site.
-2. Abra o PowerShell na pasta do projeto.
-3. Rode:
-
-```powershell
-cd backend
-npm install
-npm start
-```
-
-4. Descubra o IP do notebook servidor:
-
-```powershell
-ipconfig
-```
-
-Procure o campo `IPv4`. Exemplo:
+O backend recebe as requisicoes do frontend e salva os dados em:
 
 ```text
-192.168.0.20
+backend/data/db.json
 ```
 
-5. No navegador de outro notebook, teste:
+Esse arquivo guarda os usuarios cadastrados, favoritos, itens para assistir mais tarde e historico.
 
-```text
-http://192.168.0.20:3000/api/health
-```
+## Funcionalidades da API
 
-Troque `192.168.0.20` pelo IP real do notebook servidor.
+- Cadastro de usuario
+- Login
+- Listagem de conteudos
+- Favoritos
+- Ver mais tarde
+- Historico / continuar assistindo
 
-### No notebook que vai abrir o site
+## Observacao
 
-1. Entre na pasta `frontend`.
-2. Crie um arquivo chamado `.env`.
-3. Coloque dentro dele:
-
-```text
-VITE_API_URL=http://192.168.0.20:3000/api
-```
-
-Troque `192.168.0.20` pelo IP real do notebook servidor.
-
-4. Rode o frontend:
-
-```powershell
-npm install
-npm run dev
-```
-
-5. Abra:
-
-```text
-http://localhost:5173
-```
-
-Se o IP do notebook servidor mudar, atualize o arquivo `frontend/.env` e reinicie o frontend.
+O arquivo `backend/data/db.json` e local e nao deve ir para o GitHub com dados reais.
+Quando outra pessoa rodar o projeto, esse arquivo sera criado automaticamente pela API.

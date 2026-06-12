@@ -1,6 +1,14 @@
 # API do AssinaVideo
 
-Backend em Node.js + Express para o projeto StreamProjectA3.
+Backend simples feito em Node.js com Express.
+
+A API salva os dados em um arquivo JSON local:
+
+```text
+backend/data/db.json
+```
+
+Esse arquivo funciona como um banco de dados simples para o trabalho.
 
 ## Como rodar
 
@@ -10,52 +18,45 @@ npm install
 npm start
 ```
 
-O servidor fica disponivel em:
+Depois acesse:
 
 ```text
-http://localhost:3000
+http://localhost:3000/api/health
 ```
 
-Quando rodar em outro notebook da mesma rede, use o IP desse notebook:
+Se aparecer `API funcionando`, o backend esta rodando.
 
-```text
-http://IP-DO-NOTEBOOK:3000
-```
+## O que a API faz
 
-Exemplo:
-
-```text
-http://192.168.0.20:3000
-```
+- Cadastra usuarios
+- Faz login
+- Lista os conteudos do site
+- Salva favoritos
+- Salva itens em "ver mais tarde"
+- Salva historico para o "continue assistindo"
 
 ## Rotas principais
 
-### Teste da API
-
 ```http
 GET /api/health
-```
-
-### Listar conteudos
-
-```http
 GET /api/conteudos
-```
-
-Tambem aceita filtros:
-
-```http
-GET /api/conteudos?busca=ruptura
-GET /api/conteudos?categoria=Drama
-```
-
-### Cadastrar usuario
-
-```http
+GET /api/conteudos/:id
 POST /api/usuarios
+POST /api/login
+GET /api/usuarios/:usuarioId/favoritos
+POST /api/usuarios/:usuarioId/favoritos
+DELETE /api/usuarios/:usuarioId/favoritos/:conteudoId
+GET /api/usuarios/:usuarioId/ver-mais-tarde
+POST /api/usuarios/:usuarioId/ver-mais-tarde
+DELETE /api/usuarios/:usuarioId/ver-mais-tarde/:conteudoId
+GET /api/usuarios/:usuarioId/historico
+POST /api/usuarios/:usuarioId/historico
+DELETE /api/usuarios/:usuarioId/historico/:conteudoId
 ```
 
-Corpo JSON:
+## Exemplos de envio
+
+Cadastro:
 
 ```json
 {
@@ -66,13 +67,7 @@ Corpo JSON:
 }
 ```
 
-### Login
-
-```http
-POST /api/login
-```
-
-Corpo JSON:
+Login:
 
 ```json
 {
@@ -81,15 +76,7 @@ Corpo JSON:
 }
 ```
 
-### Favoritos
-
-```http
-GET /api/usuarios/:usuarioId/favoritos
-POST /api/usuarios/:usuarioId/favoritos
-DELETE /api/usuarios/:usuarioId/favoritos/:conteudoId
-```
-
-Corpo JSON para salvar favorito:
+Salvar favorito, ver mais tarde ou historico:
 
 ```json
 {
@@ -97,31 +84,7 @@ Corpo JSON para salvar favorito:
 }
 ```
 
-### Ver mais tarde
-
-```http
-GET /api/usuarios/:usuarioId/ver-mais-tarde
-POST /api/usuarios/:usuarioId/ver-mais-tarde
-DELETE /api/usuarios/:usuarioId/ver-mais-tarde/:conteudoId
-```
-
-Corpo JSON para salvar:
-
-```json
-{
-  "conteudoId": "the-boys"
-}
-```
-
-### Historico / continuar assistindo
-
-```http
-GET /api/usuarios/:usuarioId/historico
-POST /api/usuarios/:usuarioId/historico
-DELETE /api/usuarios/:usuarioId/historico/:conteudoId
-```
-
-Corpo JSON para registrar que o usuario iniciou um conteudo:
+No historico tambem pode ser enviado:
 
 ```json
 {
@@ -130,15 +93,7 @@ Corpo JSON para registrar que o usuario iniciou um conteudo:
 }
 ```
 
-A tela do player chama essa rota automaticamente. A sidebar usa o historico para mostrar o ultimo item em "Continue assistindo".
+## Observacao
 
-## Banco de dados temporario
-
-Nesta primeira versao, os dados ficam em:
-
-```text
-backend/data/db.json
-```
-
-Isso facilita os testes iniciais. Esse arquivo e local e nao deve ser enviado ao GitHub com dados reais de usuario.
-Depois, se o trabalho pedir banco de dados real, essa estrutura pode virar MySQL, PostgreSQL ou SQLite.
+Essa versao foi feita para fins didaticos. Por isso usa arquivo JSON local em vez de banco de dados real.
+Em um sistema publicado de verdade, o ideal seria usar banco de dados e proteger melhor as senhas.
